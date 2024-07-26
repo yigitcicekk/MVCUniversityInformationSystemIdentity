@@ -1,0 +1,10 @@
+﻿@model OgrenciDers
+
+<div class="alert alert-danger">
+    @Model.Ders.Kod - @Model.Ders.Ad - @Model.Ders.Kredi dersini silmek istediğinize emin misiniz?
+    <form asp-action="Sil" method="post">
+        <input hidden asp-for="MVCIdentityUserId" />
+        <button class="btn btn-danger">EVET</button>
+        <a class="btn btn-primary" asp-action="Index">HAYIR</a>
+    </form>
+</div>

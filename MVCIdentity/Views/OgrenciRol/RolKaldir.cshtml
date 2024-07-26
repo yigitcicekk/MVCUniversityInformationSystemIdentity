@@ -1,0 +1,13 @@
+﻿@using MVCIdentity.Areas.Identity.Data
+@model MVCIdentityUser
+
+
+<div class="alert alert-secondary">
+    @Model.FirstName @Model.LastName adli kişinin rolünü kaldırmak istediğinize emin misiniz?
+
+    <form asp-action="RolKaldir" method="post">
+
+        <button class="btn btn-danger"> EVET </button>
+        <a asp-action="Index" class="btn btn-primary"> HAYIR </a>
+    </form>
+</div>

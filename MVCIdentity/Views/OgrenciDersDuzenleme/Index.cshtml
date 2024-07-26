@@ -1,0 +1,43 @@
+﻿@using MVCIdentity.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity
+@* ÖNCE bütün kullanıcıların listesini gösterelim *@
+@model List<MVCIdentityUser>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                Öğrencinin Kullanıcı Adı
+            </th>
+            <th>
+                Adı
+            </th>
+            <th>
+                Soyadı
+            </th>      
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var kullanici in Model)
+            {
+               
+                <tr>
+                    <td>
+                        @kullanici.UserName
+                    </td>
+                    <td>
+                        @kullanici.FirstName
+                    </td>
+                    <td>
+                        @kullanici.LastName
+                    </td>
+                    <td>
+                        <a asp-action="DersleriGor" asp-route-id="@kullanici.Id" class="btn btn-info"> Dersleri Gör <span style='font-size:20px;'> &#8681;</span> </a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>

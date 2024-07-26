@@ -1,0 +1,82 @@
+﻿@using MVCIdentity.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity
+@* ÖNCE bütün kullanıcıların listesini gösterelim *@
+@model List<MVCIdentityUser>
+@inject UserManager<MVCIdentityUser> _usermanager
+
+@{
+    bool ogrenciRoluVarmi;
+    IList<string> kullanicininRollerininListesi;
+}
+
+@{
+    if (TempData["Hata"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Hata"]</div>
+    }
+}
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                Kullanıcı Adı
+            </th>
+            <th>
+                Adı
+            </th>
+            <th>
+                Soyadı
+            </th>
+            <th>
+                Rol Atama İşlemi
+            </th>
+            <th>
+                Rol Çıkarma İşlemi
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var kullanici in Model)
+            {
+                kullanicininRollerininListesi = await _usermanager.GetRolesAsync(kullanici);
+                ogrenciRoluVarmi = kullanicininRollerininListesi.Any(r => r == "Ogrenci");
+                <tr>
+                    <td>
+                        @kullanici.UserName
+                    </td>
+                    <td>
+                        @kullanici.FirstName
+                    </td>
+                    <td>
+                        @kullanici.LastName
+                    </td>
+                    @{
+                        if (ogrenciRoluVarmi)
+                        {
+                            <td>
+                                <a asp-action="RolEkle" asp-route-id="@kullanici.Id" class="btn btn-success disabled">Öğrenci Rolü Ata</a>
+                            </td>
+                            <td>
+                                <a asp-action="RolKaldir" asp-route-id="@kullanici.Id" class="btn btn-danger">Öğrenci Rolü Kaldır</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a asp-action="RolEkle" asp-route-id="@kullanici.Id" class="btn btn-success">Öğrenci Rolü Ata</a>
+                            </td>
+                            <td>
+                                <a asp-action="RolKaldir" asp-route-id="@kullanici.Id" class="btn btn-danger disabled">Öğrenci Rolü Kaldır</a>
+                            </td>
+                        }
+                    }
+
+
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>

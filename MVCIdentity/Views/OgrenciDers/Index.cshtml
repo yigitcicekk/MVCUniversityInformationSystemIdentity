@@ -1,0 +1,70 @@
+﻿@model OgrenciDers
+
+<h1 class="text-danger"> DERS EKLEME VE SİLME EKRANI</h1>
+<hr />
+<h3 class="text-danger">Seçtiğiniz Dersler</h3>
+@* Önce öğrencinin seçtiği dersleri göster *@
+
+@{
+    if(((List<OgrenciDers>)(ViewBag.SeciliDersler)).Count > 0)
+    {
+        <table class="table table-warning table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Ad
+                    </th>
+                    <th>
+                        Kod
+                    </th>
+                    <th>
+                        Kredi
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (OgrenciDers ogrenciDersi in ViewBag.SeciliDersler)
+                {
+                    <tr>
+                        <td>
+                            @ogrenciDersi.Ders.Ad
+                        </td>
+                        <td>
+                            @ogrenciDersi.Ders.Kod
+                        </td>
+                        <td>
+                            @ogrenciDersi.Ders.Kredi
+                        </td>
+                        <td>
+                            <a asp-route-id="@ogrenciDersi.Id" asp-action="Sil" class="btn btn-danger">SİL</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            Seçtiğiniz ders bulunmamaktadır!
+        </div>
+    }
+}
+@{
+    if(TempData["Hata"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Hata"]</div>
+    }
+}
+
+<h3 class="text-danger"> SEÇEBİLECEĞİNİZ DERSLER </h3>
+
+<form asp-action="Index" method="post">
+    @* burada tüm dersler comboboxta olacak ve öğrenci oradan istediği dersi seçecek *@
+    <label class="form-control" asp-for="DersId">Ders: </label>
+    <select class="form-control" asp-for="DersId" asp-items="@(new SelectList(ViewBag.TumDersler,"Id","Ad"))"> </select>
+
+    <button class="btn btn-success w-100">DERSİ EKLE</button>
+</form>

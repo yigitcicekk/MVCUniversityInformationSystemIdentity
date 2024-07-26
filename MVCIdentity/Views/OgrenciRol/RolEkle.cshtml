@@ -1,0 +1,13 @@
+﻿@using MVCIdentity.Areas.Identity.Data
+@model MVCIdentityUser
+
+
+<div class="alert alert-secondary">
+    @Model.FirstName @Model.LastName adli kişiye öğrenci rolü vermek istediğinize emin misiniz?
+
+    <form asp-action="RolEkle" method="post"> 
+        
+        <button class="btn btn-success"> EVET </button>
+        <a asp-action="Index" class="btn btn-danger"> HAYIR </a>
+    </form>
+</div>

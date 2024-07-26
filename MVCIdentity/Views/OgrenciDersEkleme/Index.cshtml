@@ -1,0 +1,32 @@
+﻿@model OgrenciDers
+
+<h1 class="text-danger">Öğrenciye Ders Ekleme</h1>
+
+<form asp-action="Index" method="post">
+
+    @* burada tüm öğrenciler comboboxta olacak ve oradan ders eklemek istenen öğrenci seçilecek  *@
+    <label asp-for="MVCIdentityUserId">Öğrenci: </label>
+    <br />
+    <select class="form-control" asp-for="MVCIdentityUserId" asp-items="@(new SelectList(ViewBag.Ogrenciler,"Id","FirstName"))"> </select>
+    <br />
+    
+
+
+
+    @* burada tüm dersler comboboxta olacak oradan eklenmek istenen ders seçilecek *@
+    <label asp-for="DersId">Ders: </label>
+    <select class="form-control" asp-for="DersId" asp-items="@(new SelectList(ViewBag.TumDersler,"Id","Ad"))"> </select>
+    <br />
+    <button class="btn btn-success w-100">DERSİ EKLE</button>
+</form>
+
+@{
+    if (TempData["Hata"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Hata"]</div>
+    }
+    else if (TempData["Mesaj"] != null)
+    {
+        <div class="alert alert-success">@TempData["Mesaj"]</div>
+    }
+}
